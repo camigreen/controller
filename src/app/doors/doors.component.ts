@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { InfiniasService } from '../infinias.service';
 import { DoorStatus, reqOptions } from "../infinias.datatypes";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-doors',
@@ -46,7 +47,7 @@ export class DoorsComponent implements OnInit {
     }
   }
 
-  constructor(private _infiniasService: InfiniasService ) { }
+  constructor(private _infiniasService: InfiniasService, private toastr: ToastrService) { }
 
   ngOnInit() {
     var temp: DoorStatus[];
@@ -95,9 +96,9 @@ export class DoorsComponent implements OnInit {
     console.log(this._doors[ids]);
     var door = this._doors[ids];
     if (door.ControllerStatus == "Offline") {
-      this.log('"'+this._doors[ids].Door+'" is Offline.');
+      this.log('error',this._doors[ids].Door+'" is Offline.');
     } else {
-      this.log('"'+this._doors[ids].Door+'" temporarily unlocked.');
+      this.log('success', this._doors[ids].Door+' temporarily unlocked.');
       this._infiniasService.unlock(options).subscribe();
     }
     
@@ -111,9 +112,9 @@ export class DoorsComponent implements OnInit {
     console.log(this._doors[ids]);
     var door = this._doors[ids];
     if (door.ControllerStatus == "Offline") {
-      this.log('"'+this._doors[ids].Door+'" is Offline.');
+      this.log('error',this._doors[ids].Door+' is Offline.');
     } else {
-      this.log('"'+this._doors[ids].Door+'" is locked OPEN.');
+      this.log('success',this._doors[ids].Door+' is locked OPEN.');
       this._infiniasService.unlock(options).subscribe();
     }
     
@@ -125,7 +126,7 @@ export class DoorsComponent implements OnInit {
       lockStatus: 'Normal'
     };
 
-    this.log('"'+this._doors[ids].Door+'" has been returned to the schedule.');
+    this.log('success',this._doors[ids].Door+' has been returned to the schedule.');
     this._infiniasService.lock(options).subscribe();
   }
 
@@ -135,7 +136,7 @@ export class DoorsComponent implements OnInit {
       duration: 0
     };
 
-    this.log('Door(s) '+options.doorIDs+' emergency opened!');
+    this.log('success','Door(s) '+options.doorIDs+' emergency opened!');
     this._infiniasService.unlock(options).subscribe();
   }
 
@@ -145,13 +146,21 @@ export class DoorsComponent implements OnInit {
       lockStatus: 'Locked'
     };
 
-    this.log('Door(s) '+options.doorIDs+' emergency locked!');
+    this.log('success','Door(s) '+options.doorIDs+' emergency locked!');
     this._infiniasService.unlock(options).subscribe();
   }
 
-  log(data: string) {
-    this.logText.push(data);
-    console.log(data);
+  log(type: string, message: string) {
+    var options = {positionClass: 'toast-bottom-right'};
+    if(type == 'success') {
+      this.toastr.success(message, 'Success', options);
+    } else if (type == 'error') {
+      this.toastr.error(message, 'ERROR', options);
+    } else {
+      this.toastr.info(message, 'Information', options);
+    }
+    //this.logText.push(message);
+    //console.log(message);
   }
 
 }
