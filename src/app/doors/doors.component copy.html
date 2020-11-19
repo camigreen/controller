@@ -1,0 +1,29 @@
+<h2>Doors</h2>
+<div class="door-container">
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <div  class="row">
+          <h3 class="card-title">{{door.Door}}</h3>
+        </div>
+        <div class="row">
+          <div style="margin-right:10px;">Door Status:</div>
+          <div>
+            <div class="led-box">
+              <div class="led-none" [class]='statusMap[door.DoorStatus].light'></div>
+            </div>
+          </div>
+          <div class="col">
+            {{statusMap[door.DoorStatus].text}}
+          </div>
+        </div>
+        <div class="row">
+          <button (click)="open(door.Id)" class="btn btn-primary" type="button">Open</button>&nbsp;
+          <button (click)="close(door.Id)" class="btn btn-danger" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
