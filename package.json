@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~11.0.0",
+    "@angular/animations": "^11.0.2",
     "@angular/common": "~11.0.0",
     "@angular/compiler": "~11.0.0",
     "@angular/core": "~11.0.0",
@@ -27,6 +27,7 @@
     "ffmpeg": "0.0.4",
     "jquery": "^3.5.1",
     "jsmpeg": "^1.0.0",
+    "ngx-toastr": "^13.1.0",
     "node-rtsp-stream": "0.0.8",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.3",
