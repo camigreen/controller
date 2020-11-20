@@ -1,0 +1,34 @@
+{
+    "doorConfig": {
+        "statusMap": {
+            "ClosedNormal": {
+              "light": "led-green",
+              "text": "Closed"
+            },
+            "OpenNormal": {
+              "light": "led-red",
+              "text": "Open"
+            },
+            "ForcedOpen": {
+              "light": "led-yellow",
+              "text": "Forced Open"
+            },
+            "VehicleExiting": {
+              "light": "led-yellow",
+              "text": "Vehicle(s) Exiting"
+            },
+            "HeldOpen": {
+              "light": "led-blue",
+              "text": "Held Open"
+            },
+            "Offline": {
+              "light": "led-none",
+              "text": "Offline"
+            },
+            "unknown": {
+              "light": "led-none",
+              "text": "Unknown Status"
+            }
+          }
+    }
+}

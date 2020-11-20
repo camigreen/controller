@@ -1,0 +1,38 @@
+<div class="card"> 
+    <img *ngIf="false" src="assets/img/no_video.png" style="height:300px;"/>
+    <div class="card-body">
+      <div  class="row">
+        <div class="col-sm">
+          <h4 class="card-title">{{door.Door}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col-3">Status:</div>
+        <div class="col-1">
+          <div class="led-box">
+            <div [class]='statusMap[door.DoorStatus].light'></div>
+          </div>
+        </div>
+        <div class="col">{{statusMap[door.DoorStatus].text}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <button (click)="unlockMomentary()" class="btn btn-primary btn-block mx-auto" type="button">Quick Open</button>
+        </div>
+        <div class="col-sm">
+          <button (click)="lockOpen()" class="btn btn-danger btn-block mx-auto" type="button">Lock Open</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <button (click)="lockNormal()" class="btn btn-success btn-block mx-auto" type="button">Close</button>
+        </div>
+        <div class="col-sm">
+          <button (click)="lockDown()" class="btn btn-danger btn-block mx-auto" type="button" disabled>Lockdown</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,19 +1,14 @@
-export interface DoorResult {
+export interface InfiniasDoorResponse {
     success: boolean,
-    data: Door
+    data: InfiniasDoor
 }
 
-export interface DoorResults {
+export interface InfiniasDoorsResponse {
     NextRealizeUrl: string,
-    Values: DoorStatus[]
+    Values: InfiniasDoorStatus[]
 }
 
-export interface Gates {
-    66: Door,
-    17: Door
-}
-
-export interface Door {
+export interface InfiniasDoor {
     Name: string,
     State: string,
     IsLocked: boolean,
@@ -75,7 +70,7 @@ export interface Door {
     Id: number
 }
 
-export interface DoorStatus {
+export interface InfiniasDoorStatus {
     Id: number,
     Customer: string,
     Door: string,

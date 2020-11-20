@@ -1,58 +1,15 @@
 <div class="hero-image">
-<div class="door-container">
-  <div class="row">
-    <div class="col-lg-1 col-gap">
-      <button (click)="emergencyUnlock()" class="btn btn-danger mx-auto" type="button">Emergency Open</button>&nbsp;
+  <app-cameras></app-cameras>
+  <div class="door-container">
+    <div class="row">
+      <div class="col-lg-1 col-gap">
+        <button (click)="emergencyUnlock()" class="btn btn-danger mx-auto" type="button">Emergency Open</button>&nbsp;
+      </div>
     </div>
-    <div class="col-lg-1 col-gap">
-      <button (click)="emergencyLock()" class="btn btn-success mx-auto" type="button">Emergency Close</button>
-    </div>
-    <div class="col-lg-1 col-gap">
-      <button (click)="lockNormal('17,66')" class="btn btn-dark mx-auto" type="button">Return To Schedule</button>
-    </div>
-  </div>
-<div *ngFor="let rows of doors" class="row">
-  <div *ngFor="let door of rows" class="col-lg-3">
-    <div class="card"> 
-      <img *ngIf="false" src="assets/img/no_video.png" style="height:300px;"/>
-      <div class="card-body">
-        <div  class="row">
-          <div class="col-sm">
-            <h4 class="card-title">{{door.Door}}</h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col"></div>
-        </div>
-        <div class="row">
-          <div class="col-3">Status:</div>
-          <div class="col-1">
-            <div class="led-box">
-              <div [class]='statusMap[door.DoorStatus].light'></div>
-            </div>
-          </div>
-          <div class="col">{{statusMap[door.DoorStatus].text}}</div>
-        </div>
-        <div class="row">
-          <div class="col-sm">
-            <button (click)="unlockMomentary(door.Id)" class="btn btn-primary btn-block mx-auto" type="button">Quick Open</button>
-          </div>
-          <div class="col-sm">
-            <button (click)="lockOpen(door.Id)" class="btn btn-danger btn-block mx-auto" type="button">Lock Open</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm">
-            <button (click)="lockNormal(door.Id)" class="btn btn-success btn-block mx-auto" type="button">Close</button>
-          </div>
-        </div>
+    <div *ngFor="let rows of doors" class="row">
+      <div *ngFor="let door of rows" class="col-lg-3">
+        <app-door [door]="door"></app-door>
       </div>
     </div>
   </div>
 </div>
-</div>
-<div *ngFor="let text of logText">
-  <p>{{text}}</p>
-</div>
-</div>
-

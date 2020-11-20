@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { DoorsModule } from './doors/doors.module';
-import { AlertsComponent } from './alerts/alerts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+
 
 
 @NgModule({
@@ -15,8 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   declarations: [
-    AppComponent,
-    AlertsComponent
+    AppComponent
   ],
   providers: [ ],
   bootstrap: [ AppComponent ]

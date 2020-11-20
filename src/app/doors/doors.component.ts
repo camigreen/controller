@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { InfiniasService } from '../infinias.service';
-import { DoorStatus, reqOptions } from "../infinias.datatypes";
+import { InfiniasDoorStatus, InfiniasDoorsResponse, reqOptions } from "../infinias.datatypes";
 import { ToastrService } from 'ngx-toastr';
+import { doorConfig } from "../config.json";
 
 @Component({
   selector: 'app-doors',
@@ -11,57 +12,33 @@ import { ToastrService } from 'ngx-toastr';
 
 export class DoorsComponent implements OnInit {
 
+  public infiniasVersion: any;
   public doors = [];
   protected _doors = {};
-  public logText = [];
   private selectedDoors = [2,4];
   private selectedGates = [17,66,72,74];
-  public statusMap = {
-    ClosedNormal: {
-      light: 'led-green',
-      text: 'Closed'
-    },
-    OpenNormal: {
-      light: 'led-red',
-      text: 'Open'
-    },
-    ForcedOpen: {
-      light: 'led-yellow',
-      text: 'Forced Open'
-    },
-    VehicleExiting: {
-      light: 'led-yellow',
-      text: 'Vehicle(s) Exiting'
-    },
-    HeldOpen: {
-      light: 'led-blue',
-      text: 'Held Open'
-    },
-    Offline: {
-      light: 'led-none',
-      text: 'Offline'
-    },
-    unknown: {
-      light: 'led-none',
-      text: 'Unknown Status'
-    }
-  }
 
   constructor(private _infiniasService: InfiniasService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    var temp: DoorStatus[];
-    this._infiniasService.heartbeat()
-      .subscribe((data: DoorStatus[]) => {
+    // this._infiniasService.version().subscribe(resp => {
+    //   this.infiniasVersion = resp;
+    //   console.log(this.infiniasVersion);
+    // });
+    
+    // var temp: InfiniasDoorStatus[];
+    this._infiniasService.doors.subscribe((
+      data: InfiniasDoorsResponse) => {
         this.renderData(data);
       }); 
   }
 
-  renderData(data) {
+  renderData(data: InfiniasDoorsResponse) {
     var i = 0;
     var result = [];
     var group = [];
-    data.forEach((door: DoorStatus) => {
+    var doors = data.Values
+    data.Values.forEach((door: InfiniasDoorStatus) => {
       if(this.selectedDoors.includes(door.Id) || this.selectedGates.includes(door.Id)) {
         if(door.ControllerStatus == "Offline") {
           door.DoorStatus = "Offline";
@@ -86,48 +63,6 @@ export class DoorsComponent implements OnInit {
     });
     result.push(group);
     this.doors = result;
-  }
-
-  unlockMomentary(ids: string) {
-    var options:reqOptions = {
-      doorIDs: ids,
-      duration: 10
-    };
-    console.log(this._doors[ids]);
-    var door = this._doors[ids];
-    if (door.ControllerStatus == "Offline") {
-      this.log('error',this._doors[ids].Door+'" is Offline.');
-    } else {
-      this.log('success', this._doors[ids].Door+' temporarily unlocked.');
-      this._infiniasService.unlock(options).subscribe();
-    }
-    
-  }
-
-  lockOpen(ids: string) {
-    var options:reqOptions = {
-      doorIDs: ids,
-      duration: 0
-    };
-    console.log(this._doors[ids]);
-    var door = this._doors[ids];
-    if (door.ControllerStatus == "Offline") {
-      this.log('error',this._doors[ids].Door+' is Offline.');
-    } else {
-      this.log('success',this._doors[ids].Door+' is locked OPEN.');
-      this._infiniasService.unlock(options).subscribe();
-    }
-    
-  }
-
-  lockNormal(ids: string) {
-    var options:reqOptions = {
-      doorIDs: ids,
-      lockStatus: 'Normal'
-    };
-
-    this.log('success',this._doors[ids].Door+' has been returned to the schedule.');
-    this._infiniasService.lock(options).subscribe();
   }
 
   emergencyUnlock() {
@@ -159,8 +94,6 @@ export class DoorsComponent implements OnInit {
     } else {
       this.toastr.info(message, 'Information', options);
     }
-    //this.logText.push(message);
-    //console.log(message);
   }
 
 }
