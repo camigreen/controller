@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { JSMpeg } from '@cycjimmy/jsmpeg-player';
+import JSMpeg from '@cycjimmy/jsmpeg-player';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
  
  
 @Component({
@@ -9,12 +10,32 @@ import { JSMpeg } from '@cycjimmy/jsmpeg-player';
 })
 export class CamerasComponent implements OnInit {
 
-  constructor() { }
+  closeResult = '';
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    var jsmpeg = require('jsmpeg');
-    var canvas = document.getElementById('canvas1');
-    var player = new jsmpeg('ws://localhost:9999', {canvas: canvas});
+    
   }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'xl', centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    var canvas = document.getElementById('canvas1');
+    var player = new JSMpeg.VideoElement('#cam-container','ws://localhost:9999', {canvas: canvas});
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 
 }

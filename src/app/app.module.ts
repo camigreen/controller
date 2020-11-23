@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
-import { DoorsModule } from './doors/doors.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DoorComponent } from "./door/door.component"
 
 
 
 @NgModule({
   imports: [
-    DoorsModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DashboardModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    DoorComponent
   ],
   providers: [ ],
   bootstrap: [ AppComponent ]

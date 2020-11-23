@@ -2,6 +2,10 @@ p {
   font-family: Lato;
 }
 
+body {
+  background: #000000
+}
+
 /*
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

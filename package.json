@@ -22,6 +22,7 @@
     "@angular/router": "~11.0.2",
     "@cycjimmy/jsmpeg-player": "^5.0.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
+    "angular-gallery": "^1.0.2",
     "bootstrap": "^4.5.3",
     "child_process": "^1.0.2",
     "classlist.js": "^1.1.20150312",
