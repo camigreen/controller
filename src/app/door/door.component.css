@@ -74,11 +74,15 @@ background: linear-gradient(90deg, rgba(255,239,0,1) 0%, rgba(46,47,0,0) 63%);
 
 #cam-container {
   width: 100%;
-  position:relative;
+  position: relative;
 }
 #cam-container #canvas1 {
   width:100%
 }
-#cam-container button {
+
+#cam-container .button-container {
   position: absolute;
+  top:0px;
+  width: 100%;
+  height: 100%;
 }
