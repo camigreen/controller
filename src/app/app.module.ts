@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DoorComponent } from "./door/door.component"
+import { AccessModule } from './access/access.module';
 
 
 
@@ -14,12 +12,10 @@ import { DoorComponent } from "./door/door.component"
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    DashboardModule
+    AccessModule
   ],
   declarations: [
-    AppComponent,
-    DashboardComponent,
-    DoorComponent
+    AppComponent
   ],
   providers: [ ],
   bootstrap: [ AppComponent ]

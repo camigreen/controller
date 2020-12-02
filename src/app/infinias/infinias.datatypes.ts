@@ -84,9 +84,8 @@ export interface InfiniasDoorStatus {
     OutZoneId: number
 }
 
-export interface reqOptions {
+export interface requestOptions {
     doorIDs: string,
     lockStatus?: string, 
     duration?: number
-    
 }

@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { InfiniasDoorsResponse, InfiniasDoorResponse, InfiniasDoorStatus, InfiniasDoor, reqOptions } from "./infinias.datatypes";
+import { InfiniasDoorsResponse, InfiniasDoorResponse, InfiniasDoorStatus, InfiniasDoor, requestOptions } from "./infinias.datatypes";
 import { Observable } from 'rxjs';
+import { door } from "../doors/doors.datatypes";
 
 @Injectable( )
 export class InfiniasService {
@@ -13,23 +14,36 @@ export class InfiniasService {
     // server: "http://localhost",
     // port: "3000"
   };
-  public doors:Observable<InfiniasDoorsResponse>;
-
+  
+  public doors:Observable<door[]>;
+  
   constructor(private http: HttpClient) {
-    this.heartbeat()
-
+    
+    //this.heartbeat()
    }
 
-  heartbeat(){
+  public heartbeat(){
     var self = this;
     this.doors = new Observable(observer => {
       setInterval(function() {
         self.getDoors()
-            .subscribe((data: InfiniasDoorsResponse) => {
-              observer.next(data);
+            .subscribe((iDoors: InfiniasDoorsResponse) => {
+              var doors:door[];
+              iDoors.Values.forEach(function(iDoor) {
+                console.log(iDoor);
+                doors.push(self.parse(iDoor))
+              })
+              observer.next(doors);
             })
       }, self.settings.intervalDuration);
     })
+  }
+
+  private parse(iDoor: InfiniasDoorStatus):door {
+    var door:door;
+    door.id = iDoor.Id;
+    door.name = iDoor.Door;
+    return door;
   }
 
   getDoors() {
@@ -40,12 +54,12 @@ export class InfiniasService {
     return this.http.get<(InfiniasDoorResponse)>(this.settings.server+':'+this.settings.port+'/api/doors/'+id);
   }
 
-  unlock(options: reqOptions) {
+  unlock(options: requestOptions) {
     console.log(options);
     return this.http.put<{}>(this.settings.server+':'+this.settings.port+'/api/doors/unlock', options);
   }
 
-  lock(options: reqOptions) {
+  lock(options: requestOptions) {
     console.log(options);
     return this.http.put<{}>(this.settings.server+':'+this.settings.port+'/api/doors/lock', options);
   }

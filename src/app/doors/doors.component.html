@@ -1,5 +1,5 @@
 <div class="hero-image">
-  <app-cameras></app-cameras>
+  <app-camera></app-camera>
   <div class="door-container">
     <div class="row">
       <div class="col-lg-1 col-gap">
@@ -8,7 +8,7 @@
     </div>
     <div *ngFor="let rows of doors" class="row">
       <div *ngFor="let door of rows" class="col-lg-3">
-        <app-door [door]="door"></app-door>
+        <!-- <app-door [door]="door"></app-door> -->
       </div>
     </div>
   </div>

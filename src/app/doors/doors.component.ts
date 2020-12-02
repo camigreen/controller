@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { InfiniasService } from '../infinias.service';
-import { InfiniasDoorStatus, InfiniasDoorsResponse, reqOptions } from "../infinias.datatypes";
 import { ToastrService } from 'ngx-toastr';
-import { doorConfig } from "../config.json";
+import { door } from './doors.datatypes';
 
 @Component({
   selector: 'app-doors',
@@ -12,13 +10,12 @@ import { doorConfig } from "../config.json";
 
 export class DoorsComponent implements OnInit {
 
-  public infiniasVersion: any;
-  public doors = [];
+  public doors:door[];
   protected _doors = {};
   private selectedDoors = [2,4];
   private selectedGates = [17,66,72,74];
 
-  constructor(private _infiniasService: InfiniasService, private toastr: ToastrService) { }
+  constructor() {}
 
   ngOnInit() {
     // this._infiniasService.version().subscribe(resp => {
@@ -27,18 +24,26 @@ export class DoorsComponent implements OnInit {
     // });
     
     // var temp: InfiniasDoorStatus[];
-    this._infiniasService.doors.subscribe((
-      data: InfiniasDoorsResponse) => {
-        this.renderData(data);
-      }); 
+    this.test();
+    // this._infiniasService.doors.subscribe((
+    //   data ) => {
+    //     this.doors = data;
+    //     // this.renderData(data);
+    //   }); 
+  }
+  test() {
+    console.log("dooors");
   }
 
-  renderData(data: InfiniasDoorsResponse) {
+  parseDoors(data) {
+
+  }
+
+  renderData(data) {
     var i = 0;
     var result = [];
     var group = [];
-    var doors = data.Values
-    data.Values.forEach((door: InfiniasDoorStatus) => {
+    data.Values.forEach((door) => {
       if(this.selectedDoors.includes(door.Id) || this.selectedGates.includes(door.Id)) {
         if(door.ControllerStatus == "Offline") {
           door.DoorStatus = "Offline";
@@ -66,7 +71,7 @@ export class DoorsComponent implements OnInit {
   }
 
   emergencyUnlock() {
-    var options:reqOptions = {
+    var options:requestOptions = {
       doorIDs: '17,66,72,74',
       duration: 0
     };
@@ -76,7 +81,7 @@ export class DoorsComponent implements OnInit {
   }
 
   emergencyLock() {
-    var options:reqOptions = {
+    var options:requestOptions = {
       doorIDs: '17,66,72,74',
       lockStatus: 'Locked'
     };

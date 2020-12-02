@@ -6,17 +6,21 @@ import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import { DoorsComponent } from './doors.component';
 
 
-import { InfiniasService } from '../infinias.service';
+import { InfiniasService } from '../infinias/infinias.service';
+import { DoorComponent } from './door/door.component';
+import { CameraModule } from '../camera/camera.module';
 
 
 @NgModule({
   imports: [
       HttpClientModule,
       CommonModule,
-      NgbModalModule  
+      NgbModalModule,
+      CameraModule  
   ],
   declarations: [
-    DoorsComponent
+    DoorsComponent,
+    DoorComponent
   ],
   providers: [ 
     InfiniasService 

@@ -1,4 +1,8 @@
 .map-container {
     position:relative;
+    height: 100vh;
+}
+.map-container img.map {
+    height:100%;
 }
 
